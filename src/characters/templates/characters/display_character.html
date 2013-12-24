@@ -1,0 +1,40 @@
+<h1>{{ character.name }}</h1>
+<p> {{ character.description }} </p>
+<table>
+<tr><th>Template </th><td> {{ character.template }} </td><tr>
+<tr><th>High Concept</th> <td>  {{ character.high_concept }} </td></tr>
+<tr><th>Trouble </th><td> {{ character.trouble }}</td></tr>
+</table>
+
+<h2>Phase Aspects</h2>
+
+<table>
+{% for phase in character.phases.all %}
+    <tr><td> {{ phase.name }} </td> <td> {{ phase.phase_aspect }} </td></tr>
+{% endfor %}
+</table>
+
+<h2>Stunts</h2>
+
+<table>
+<tr><th>Stunt</th><th>Description</th></tr>
+{% for stunt in character.stunts.all %}
+    <tr><td> {{stunt.name}} </td> <td> {{stunt.description}}</td></tr>
+{% endfor %}
+</table>
+
+<h2>Skills</h2>
+
+<table>
+<tr><th>Skill</th><th>Rating</th></tr>
+{% for skill in character.skills.all %}
+    <tr><td> {{ skill.name }} </td><td> {{ skill.rating }} </td>
+{% endfor %}
+</table>
+
+<h2>Powers</h2>
+<ul>
+{% for power in character.powers.all %}
+    <li> {{ power.name }} </li>
+{% endfor %}
+</ul>
