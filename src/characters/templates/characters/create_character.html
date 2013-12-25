@@ -1,0 +1,11 @@
+<h1>Add character</h1>
+
+<form action="{% url "create-character" %}" method="POST">
+{% csrf_token %}
+<p>
+  {{ form }}
+</p>
+<input id="save_char" type="submit" value="Save" />
+</form>
+
+

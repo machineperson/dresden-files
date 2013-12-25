@@ -9,3 +9,7 @@ def index(request):
 class CharacterView(generic.DetailView):
     model = Character
     template_name = 'characters/display_character.html'
+
+class CharacterCreateView(generic.CreateView):
+    model = Character
+    template_name = 'characters/create_character.html'
