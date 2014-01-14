@@ -3,7 +3,7 @@
 <form action="{% url "create-character" %}" method="POST">
 {% csrf_token %}
 <p>
-  {{ form }}
+  {{ form.as_p }}
 </p>
 <input id="save_char" type="submit" value="Save" />
 </form>
