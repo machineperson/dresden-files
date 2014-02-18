@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
-
-
+from django.core.validators import MaxValueValidator
+from django.db.models import F
 
 class Stunt(models.Model):
     name = models.CharField(max_length=200)
@@ -26,15 +26,17 @@ class Character(models.Model):
     template = models.CharField(max_length=100)
     high_concept = models.CharField('High Concept', max_length=100)
     trouble = models.CharField('Trouble Aspect', max_length=100)
-    skill_points = models.IntegerField('Skill points')
-    base_refresh = models.IntegerField('Base refresh')
+    skill_points = models.IntegerField('Skill points', validators=[MaxValueValidator(F('skill_cap'))])
+    base_refresh = models.PositiveIntegerField('Base refresh')
+    skill_cap = models.PositiveIntegerField('Skill cap')    
     notes = models.TextField(blank=True)
     inventory = models.TextField(blank=True)
     stunts = models.ManyToManyField(Stunt, blank='True')
     powers = models.ManyToManyField(Power, blank='True')
     skills = models.ManyToManyField(Skill, through='CharacterSkill', blank='True')
     admin_hash = models.CharField(max_length=200)
-    
+
+
     def __unicode__(self):
         return self.name
 
