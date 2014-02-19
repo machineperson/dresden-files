@@ -60,6 +60,9 @@ class CharacterSkill(models.Model):
 
 def ensure_phases(sender, **kwargs):
     if kwargs.get('created', False):
-        Phase.objects.create(character=kwargs.get('instance'), name='Background', phase_aspect=' ')
+        for phase in ['Background', 'Rising Conflict', 'The Story', 'Guest Star', 'Guest Star Redux']:
+            Phase.objects.create(character=kwargs.get('instance'), name=phase, phase_aspect=' ')
+        for s in Skill.objects:
+            CharacterSkill.objects.create(character=kwargs.get('instance'), skill=s, rating=0)
 
 post_save.connect(ensure_phases, sender=Character)
