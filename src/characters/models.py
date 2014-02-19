@@ -31,10 +31,12 @@ class Character(models.Model):
     skill_cap = models.PositiveIntegerField('Skill cap')    
     notes = models.TextField(blank=True)
     inventory = models.TextField(blank=True)
-    stunts = models.ManyToManyField(Stunt, blank='True')
-    powers = models.ManyToManyField(Power, blank='True')
-    skills = models.ManyToManyField(Skill, through='CharacterSkill', blank='True')
-    admin_hash = models.CharField(max_length=200)
+    stunts = models.ManyToManyField(Stunt, blank=True)
+    powers = models.ManyToManyField(Power, blank=True)
+    skills = models.ManyToManyField(Skill, through='CharacterSkill', blank=True)
+    admin_hash = models.CharField(max_length=200, editable=False)
+    view_hash = models.CharField(max_length=200, editable=False
+ view_hash = models.CharField(max_length=200, editable=False))
 
 
     def __unicode__(self):
