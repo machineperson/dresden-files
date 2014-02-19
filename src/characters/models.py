@@ -35,8 +35,7 @@ class Character(models.Model):
     powers = models.ManyToManyField(Power, blank=True)
     skills = models.ManyToManyField(Skill, through='CharacterSkill', blank=True)
     admin_hash = models.CharField(max_length=200, editable=False)
-    view_hash = models.CharField(max_length=200, editable=False
- view_hash = models.CharField(max_length=200, editable=False))
+    view_hash = models.CharField(max_length=200, editable=False)
 
 
     def __unicode__(self):
