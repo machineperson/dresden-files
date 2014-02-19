@@ -26,7 +26,7 @@ class Character(models.Model):
     template = models.CharField(max_length=100)
     high_concept = models.CharField('High Concept', max_length=100)
     trouble = models.CharField('Trouble Aspect', max_length=100)
-    skill_points = models.IntegerField('Skill points', validators=[MaxValueValidator(F('skill_cap'))])
+    skill_points = models.PositiveIntegerField('Skill points')
     base_refresh = models.PositiveIntegerField('Base refresh')
     skill_cap = models.PositiveIntegerField('Skill cap')    
     notes = models.TextField(blank=True)
@@ -50,7 +50,7 @@ class Phase(models.Model):
         return self.name + ": " + self.phase_aspect
 
 class CharacterSkill(models.Model):
-    skill = models.ForeignKey(Skill)
+    skill = models.ForeignKey(Skill, validators = [MaxValueValidator(F('character.skill_cap'))])
     character = models.ForeignKey(Character)
     rating = models.IntegerField()
 
