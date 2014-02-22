@@ -8,8 +8,10 @@ def index(request):
 
 class CharacterView(generic.DetailView):
     model = Character
+    fields = ['name', 'description', 'template', 'high_concept', 'trouble', 'skill_points', 'base_refresh', 'skill_cap', 'notes', 'inventory']
     template_name = 'characters/display_character.html'
 
 class CharacterCreateView(generic.CreateView):
     model = Character
+    fields = ['name', 'description', 'template', 'high_concept', 'trouble', 'skill_points', 'base_refresh', 'skill_cap', 'notes', 'inventory']
     template_name = 'characters/create_character.html'
