@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.core.validators import MaxValueValidator
 from django.db.models import F
+from django.core.urlresolvers import reverse
+
 
 class Stunt(models.Model):
     name = models.CharField(max_length=200)
@@ -36,6 +38,9 @@ class Character(models.Model):
     skills = models.ManyToManyField(Skill, through='CharacterSkill', blank=True)
     admin_hash = models.CharField(max_length=200, editable=False)
     view_hash = models.CharField(max_length=200, editable=False)
+
+    def get_absolute_url(self):
+        return reverse('character-detail', kwargs={'pk': self.pk})
 
 
     def __unicode__(self):
