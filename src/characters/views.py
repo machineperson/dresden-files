@@ -15,3 +15,8 @@ class CharacterCreateView(generic.CreateView):
     model = Character
     fields = ['name', 'description', 'template', 'high_concept', 'trouble', 'skill_points', 'base_refresh', 'skill_cap', 'notes', 'inventory']
     template_name = 'characters/create_character.html'
+
+class CSkillsEditView(generic.UpdateView):
+    model = Character
+    fields = ['skills']
+    template_name = 'characters/edit_skills.html' 
