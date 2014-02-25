@@ -59,6 +59,9 @@ class CharacterSkill(models.Model):
     skill = models.ForeignKey(Skill, validators = [MaxValueValidator(F('character.skill_cap'))])
     character = models.ForeignKey(Character)
     rating = models.IntegerField()
+    
+    def get_absolute_url(self):
+        return reverse('edit-skills', kwargs={'pk': self.character})
 
     class Meta:
         ordering = ["rating"]
