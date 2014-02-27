@@ -3,7 +3,8 @@ from django.db.models.signals import post_save
 from django.core.validators import MaxValueValidator
 from django.db.models import F
 from django.core.urlresolvers import reverse
-
+import hashlib
+import random
 
 class Stunt(models.Model):
     name = models.CharField(max_length=200)
@@ -78,5 +79,14 @@ def ensure_phases(sender, **kwargs):
             Phase.objects.create(character=kwargs.get('instance'), name=phase, phase_aspect=' ')
         for s in Skill.objects.all():
             CharacterSkill.objects.create(character=kwargs.get('instance'), skill=s, rating=0)
+
+def create_links(sender, **kwargs):
+    if kwargs.get('created', False):
+        character = kwargs.get('instance')
+        h = hashlib.sha256()
+        h.update(character.pk.__unicode__() + character.name)
+        character.view_hash = h.hexdigest()
+        h.update(character.pk.__unicode__() + character.name + random.random().__unicode__())
+        character.admin_hash = h.hexdigest() 
 
 post_save.connect(ensure_phases, sender=Character)
