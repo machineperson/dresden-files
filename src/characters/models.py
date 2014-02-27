@@ -23,9 +23,15 @@ class Skill(models.Model):
         return self.name
 
 class Character(models.Model):
+    template_choices = (
+        ('', ''),
+        ('Custom', 'Custom')
+    )
+
+
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    template = models.CharField(max_length=100)
+    template = models.CharField(max_length=100, choices=template_choices)
     high_concept = models.CharField('High Concept', max_length=100)
     trouble = models.CharField('Trouble Aspect', max_length=100)
     skill_points = models.PositiveIntegerField('Skill points')
@@ -36,8 +42,8 @@ class Character(models.Model):
     stunts = models.ManyToManyField(Stunt, blank=True)
     powers = models.ManyToManyField(Power, blank=True)
     skills = models.ManyToManyField(Skill, through='CharacterSkill', blank=True)
-    admin_hash = models.CharField(max_length=200, editable=False)
-    view_hash = models.CharField(max_length=200, editable=False)
+    admin_hash = models.CharField(max_length=200, editable=False, unique=True)
+    view_hash = models.CharField(max_length=200, editable=False, unique=True)
 
     def get_absolute_url(self):
         return reverse('character-detail', kwargs={'pk': self.pk})
