@@ -25,11 +25,23 @@ class Skill(models.Model):
 
 class Character(models.Model):
     template_choices = (
-        ('', ''),
+        ('Pure Mortal', 'Pure Mortal'),
+        ('Champion of God', 'Champion of God'),
+        ('Changeling', 'Changeling'),
+        ('Emissary of Power', 'Emissary of Power'),
+        ('Focused Practitioner', 'Focused Practitioner'),
+        ('Knight of a Faerie Court', 'Knight of a Faerie Court'),
+        ('Lycanthrope', 'Lycanthrope'),
+        ('Minor Talent', 'Minor Talent'),
+        ('Red Court Infected', 'Red Court Infected'),
+        ('Sorcerer', 'Sorcerer'),
+        ('True Believer', 'True Believer'),
+        ('Were-Form', 'Were-Form'),
+        ('White Court Vampire', 'White Court Vampire'),
+        ('White Court Virgin', 'White Court Virgin'), 
+        ('Wizard', 'Wizard'),
         ('Custom', 'Custom')
     )
-
-
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     template = models.CharField(max_length=100, choices=template_choices)
