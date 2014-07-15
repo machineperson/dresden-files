@@ -17,7 +17,9 @@ class CharacterCreateView(generic.CreateView):
     model = Character
     fields = ['name', 'description', 'template', 'high_concept', 'trouble', 'skill_points', 'base_refresh', 'skill_cap', 'notes', 'inventory']
     template_name = 'characters/create_character.html'
-#    success_url = reverse_lazy('character_created', kwargs={'pk': self._id, 'view_hash': self.view_hash, 'admin_hash': self.admin_hash})
+    
+    def get_success_url(self):
+        return reverse_lazy('character_created', kwargs={'pk': self._id, 'view_hash': self.view_hash, 'admin_hash': self.admin_hash})
 
 class CSkillsEditView(generic.UpdateView):
     model = Character
