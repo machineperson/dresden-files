@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from django.views import generic
 from characters.models import Character
 from django.core.urlresolvers import reverse, reverse_lazy 
+from characters.forms import CharacterPhaseFormSet
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     return HttpResponse("Hello, world!")
@@ -19,10 +23,18 @@ class CharacterCreateView(generic.CreateView):
     template_name = 'characters/create_character.html'
     
     def get_success_url(self):
-        return reverse_lazy('character_created', kwargs={'pk': self._id, 'view_hash': self.view_hash, 'admin_hash': self.admin_hash})
+        return reverse('edit-phases', kwargs={'pk': self.object.pk, 'character': self.object})
+
 
 class CSkillsEditView(generic.UpdateView):
     model = Character
     fields = ['skills']
     template_name = 'characters/edit_skills.html' 
 
+class EditCharacterPhaseView(generic.UpdateView):
+    model = Character
+    form_class = CharacterPhaseFormSet
+    template_name = "characters/edit_phases.html"
+
+    def get_success_url(self):
+        return self.get_object().get_absolute_url()

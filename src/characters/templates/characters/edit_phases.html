@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Edit phases</h1>
+
+<p>Phases for {{ character }}</p>
+<form action="{% url "edit-phases" pk=character.id %}"
+    method="POST">
+    {% csrf_token %}
+    {{ form.management_form }}
+    {% for phase_form in form %}
+       {% if phase_form.name.value %}
+       <h2>{{ phase_form.name.value }} </h2>
+       <p>{{ phase_form.description.errors }}</p> 
+       <p>{{ phase_form.description.label_tag }}</p>
+       <p>{{ phase_form.description }} </p>
+       <p>{{ phase_form.phase_aspect.errors }}</p> 
+       <p>{{ phase_form.phase_aspect.label_tag }}</p> 
+       <p>{{ phase_form.phase_aspect }} </p>
+            {% if "Guest" in phase_form.name.value %}
+            <p>{{ phase_form.guest_star.errors }}</p>
+            <p>{{ phase_form.guest_star.label_tag }}</p>
+            <p>{{ phase_form.guest_star }}</p>
+            {% endif %} 
+        {% endif %}
+     {% endfor %}
+
+    <input type="submit" value="Save" />
+</form>
+
+{% endblock %}
+
