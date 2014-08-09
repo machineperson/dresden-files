@@ -10,7 +10,8 @@
     {% csrf_token %}
     {{ form.management_form }}
     {% for phase_form in form %}
-       {% if phase_form.name.value %}
+        {{ phase_form.id }}
+        {% if phase_form.name.value %}
        <h2>{{ phase_form.name.value }} </h2>
        <p>{{ phase_form.description.errors }}</p> 
        <p>{{ phase_form.description.label_tag }}</p>
@@ -26,7 +27,7 @@
         {% endif %}
      {% endfor %}
 
-    <input type="submit" value="Save" />
+    <input type="submit" value="Save" name="submit"/>
 </form>
 
 {% endblock %}
